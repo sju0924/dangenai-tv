@@ -52,5 +52,5 @@ def generate_skill_spec(owner_input: str, store_id: str) -> dict:
     raw = response.text.strip()
     match = re.search(r"\{.*\}", raw, re.DOTALL)
     spec = json.loads(match.group()) if match else json.loads(raw)
-    spec["webhook_url"] = f"{WEBHOOK_URL}/handle?store_id={store_id}"
+    spec["webhook_url"] = f"{WEBHOOK_URL}?store_id={store_id}"
     return spec

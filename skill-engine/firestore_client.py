@@ -24,9 +24,11 @@ def save_skill(store_id: str, spec: dict):
         "response_template": spec.get("response_template", ""),
         "webhook_url": spec.get("webhook_url", ""),
     }
-    db.collection("stores").document(store_id).update({
-        "skills": firestore.ArrayUnion([skill_entry])
-    })
+    ref = db.collection("stores").document(store_id)
+    existing = (ref.get().to_dict() or {}).get("skills", [])
+    skills = [s for s in existing if s.get("tool_name") != skill_entry["tool_name"]]
+    skills.append(skill_entry)
+    ref.update({"skills": skills})
 
 def save_order(store_id: str, skill_name: str, parameters: dict) -> str:
     order_ref = db.collection("orders").document()

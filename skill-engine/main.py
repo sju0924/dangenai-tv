@@ -45,12 +45,27 @@ class ExtractMenuRequest(BaseModel):
     image_base64: str
     mime_type: str = "image/jpeg"
 
+class FcmTokenRequest(BaseModel):
+    store_id: str
+    fcm_token: str
+
 
 # ── 헬스체크 ─────────────────────────────────────────────
 
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+# ── FCM 토큰 등록 ─────────────────────────────────────────
+
+@app.post("/register-fcm-token")
+async def register_fcm_token(req: FcmTokenRequest):
+    db.collection("stores").document(req.store_id).set(
+        {"owner_fcm_token": req.fcm_token},
+        merge=True,
+    )
+    return {"status": "success"}
 
 
 # ── 스킬 생성 ────────────────────────────────────────────
@@ -71,7 +86,7 @@ async def place_order(req: OrderRequest):
     if WEBHOOK_URL:
         async with httpx.AsyncClient() as client:
             r = await client.post(
-                f"{WEBHOOK_URL}/handle",
+                WEBHOOK_URL,
                 params={"store_id": req.store_id},
                 json={"skill_name": req.skill_name, "parameters": req.parameters},
                 timeout=10.0,
@@ -95,6 +110,7 @@ async def chat(req: ChatRequest):
         FunctionDeclaration,
         GenerativeModel,
         Tool,
+        ToolConfig,
     )
 
     vertexai.init(project=PROJECT_ID, location=VERTEX_LOCATION)
@@ -128,28 +144,37 @@ async def chat(req: ChatRequest):
         for s in skills
     }
 
+    tool = Tool(function_declarations=declarations) if declarations else None
+    tool_config = (
+        ToolConfig(
+            function_calling_config=ToolConfig.FunctionCallingConfig(
+                mode=ToolConfig.FunctionCallingConfig.Mode.ANY
+            )
+        )
+        if declarations else None
+    )
     model = GenerativeModel(
         "gemini-2.5-flash-lite",
         system_instruction=(
             f"당신은 {store.get('name', '당그나이TV')} TV 주문 어시스턴트입니다. "
-            "사용자의 말을 파악하고 적절한 서비스를 연결하세요. "
-            "응답은 항상 2문장 이내로 간결하게 유지하세요."
+            "반드시 제공된 함수를 호출해 서비스를 연결하세요."
         ),
-        tools=[Tool(function_declarations=declarations)] if declarations else [],
+        tools=[tool] if tool else [],
+        tool_config=tool_config,
     )
 
     response = model.generate_content(req.text)
     part = response.candidates[0].content.parts[0]
 
     # Function Calling 응답
-    if hasattr(part, "function_call") and part.function_call.name:
-        fc = part.function_call
+    fc = getattr(part, "function_call", None)
+    if fc and getattr(fc, "name", None):
         skill_meta = next(
             (s for s in skills if s["tool_name"] == fc.name), None
         )
         webhook_target = (
             skill_meta.get("webhook_url") if skill_meta else None
-        ) or (f"{WEBHOOK_URL}/handle" if WEBHOOK_URL else None)
+        ) or (WEBHOOK_URL or None)
 
         if webhook_target:
             async with httpx.AsyncClient() as client:

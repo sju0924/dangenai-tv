@@ -3,6 +3,10 @@
 .env.local
 .env.*.local
 
+# owner-app 민감 정보 (config.js.example / sw-env.js.example 을 참고해서 생성)
+owner-app/config.js
+owner-app/sw-env.js
+
 # Python
 __pycache__/
 *.pyc

@@ -1,0 +1,6 @@
+window.ENV = {
+  FIREBASE_API_KEY:      "YOUR_FIREBASE_API_KEY",
+  FIREBASE_APP_ID:       "YOUR_FIREBASE_APP_ID",
+  VAPID_KEY:             "YOUR_VAPID_KEY",
+  SKILL_ENGINE_URL:      "https://skill-engine-792333060863.asia-northeast3.run.app",
+};

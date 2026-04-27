@@ -1,0 +1,5 @@
+// Service Worker 전용 환경변수 (git-ignored)
+const SW_ENV = {
+  FIREBASE_API_KEY: "YOUR_FIREBASE_API_KEY",
+  FIREBASE_APP_ID:  "YOUR_FIREBASE_APP_ID",
+};
