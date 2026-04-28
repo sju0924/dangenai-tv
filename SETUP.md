@@ -42,8 +42,7 @@ gcloud auth application-default login
 
 ### GCP 프로젝트 접근 권한
 
-팀장(sju0924@gmail.com)에게 본인 Google 계정을 알려주고 IAM 추가 요청하세요.  
-필요 역할: `roles/viewer`, `roles/aiplatform.user`, `roles/datastore.user`
+대회 당일 받으면 거기다 올려요
 
 ---
 
