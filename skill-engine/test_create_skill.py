@@ -12,7 +12,7 @@ import json, sys
 import vertexai
 
 # ── 실제 프로젝트로 Vertex AI 초기화 ──────────────────────
-PROJECT_ID = "project-9ed97ef0-254a-4ec3-975"
+PROJECT_ID = "qwiklabs-gcp-04-4818f049b9ca"
 vertexai.init(project=PROJECT_ID, location="us-central1")
 
 from skill_gen import generate_skill_spec  # noqa: E402 (init 이후 import 필수)

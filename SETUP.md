@@ -32,7 +32,7 @@ cd dangenai-tv
 
 ```bash
 gcloud auth login
-gcloud config set project project-9ed97ef0-254a-4ec3-975
+gcloud config set project qwiklabs-gcp-04-4818f049b9ca
 
 # ADC 설정 — Vertex AI·Firestore SDK 인증에 필요 (이 명령어가 핵심)
 gcloud auth application-default login
@@ -73,10 +73,10 @@ cp .env.example .env
 `.env` 내용:
 
 ```env
-GCP_PROJECT_ID=project-9ed97ef0-254a-4ec3-975
+GCP_PROJECT_ID=qwiklabs-gcp-04-4818f049b9ca
 VERTEX_LOCATION=us-central1
 FIRESTORE_DATABASE=dangenai-skills
-WEBHOOK_URL=https://asia-northeast3-project-9ed97ef0-254a-4ec3-975.cloudfunctions.net/handle-skill
+WEBHOOK_URL=https://asia-northeast3-qwiklabs-gcp-04-4818f049b9ca.cloudfunctions.net/handle-skill
 SKILL_ENGINE_URL=https://skill-engine-792333060863.asia-northeast3.run.app
 
 # SA 키 대신 ADC 사용: gcloud auth application-default login
@@ -92,7 +92,7 @@ SKILL_ENGINE_URL=https://skill-engine-792333060863.asia-northeast3.run.app
 | 리소스 | URL |
 |---|---|
 | skill-engine (Cloud Run) | `https://skill-engine-792333060863.asia-northeast3.run.app` |
-| webhook (Cloud Functions) | `https://asia-northeast3-project-9ed97ef0-254a-4ec3-975.cloudfunctions.net/handle-skill` |
+| webhook (Cloud Functions) | `https://asia-northeast3-qwiklabs-gcp-04-4818f049b9ca.cloudfunctions.net/handle-skill` |
 | Firestore DB | `dangenai-skills` (nam5) |
 
 헬스체크:
@@ -172,7 +172,7 @@ python test_consumer_flow.py --skip-create-skill
 
 ### 8-1. Firebase Console 설정
 
-1. [Firebase Console](https://console.firebase.google.com) → 프로젝트 추가 → **기존 Google Cloud 프로젝트 사용** → `project-9ed97ef0-254a-4ec3-975`
+1. [Firebase Console](https://console.firebase.google.com) → 프로젝트 추가 → **기존 Google Cloud 프로젝트 사용** → `qwiklabs-gcp-04-4818f049b9ca`
 2. **웹 앱 추가** (`</>`) → 앱 닉네임: `dangenai-owner` → Firebase 설정 객체 복사
 3. **프로젝트 설정** → **클라우드 메시징** 탭 → **웹 푸시 인증서** → **키 쌍 생성** (VAPID 키 복사)
 
