@@ -35,8 +35,8 @@
 |---|---|
 | Project ID | `qwiklabs-gcp-04-4818f049b9ca` |
 | Firestore DB | `dangenai-skills` (Native mode, nam5) |
-| Cloud Run | `skill-engine` — `asia-northeast3` |
-| Cloud Functions | `handle-skill` — `asia-northeast3` |
+| Cloud Run | `skill-engine` — `us-central1` |
+| Cloud Functions | `handle-skill` — `us-central1` |
 
 ### 필요 API 활성화
 
@@ -211,9 +211,9 @@ skill.webhook_url POST 호출 (webhook/main.py)
 cd skill-engine
 gcloud run deploy skill-engine \
   --source . \
-  --region asia-northeast3 \
+  --region us-central1 \
   --allow-unauthenticated \
-  --set-env-vars GCP_PROJECT_ID=qwiklabs-gcp-04-4818f049b9ca,VERTEX_LOCATION=us-central1,FIRESTORE_DATABASE=dangenai-skills,WEBHOOK_URL=https://asia-northeast3-qwiklabs-gcp-04-4818f049b9ca.cloudfunctions.net/handle-skill
+  --set-env-vars GCP_PROJECT_ID=qwiklabs-gcp-04-4818f049b9ca,VERTEX_LOCATION=us-central1,FIRESTORE_DATABASE=dangenai-skills,WEBHOOK_URL=https://us-central1-qwiklabs-gcp-04-4818f049b9ca.cloudfunctions.net/handle-skill
 ```
 
 ### webhook (Cloud Functions)
@@ -223,7 +223,7 @@ gcloud functions deploy handle-skill \
   --runtime python311 \
   --trigger-http \
   --allow-unauthenticated \
-  --region asia-northeast3 \
+  --region us-central1 \
   --source webhook/ \
   --set-env-vars GCP_PROJECT_ID=qwiklabs-gcp-04-4818f049b9ca,FIRESTORE_DATABASE=dangenai-skills
 ```

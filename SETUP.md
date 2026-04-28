@@ -76,8 +76,8 @@ cp .env.example .env
 GCP_PROJECT_ID=qwiklabs-gcp-04-4818f049b9ca
 VERTEX_LOCATION=us-central1
 FIRESTORE_DATABASE=dangenai-skills
-WEBHOOK_URL=https://asia-northeast3-qwiklabs-gcp-04-4818f049b9ca.cloudfunctions.net/handle-skill
-SKILL_ENGINE_URL=https://skill-engine-792333060863.asia-northeast3.run.app
+WEBHOOK_URL=https://us-central1-qwiklabs-gcp-04-4818f049b9ca.cloudfunctions.net/handle-skill
+SKILL_ENGINE_URL=https://skill-engine-314814367176.us-central1.run.app
 
 # SA 키 대신 ADC 사용: gcloud auth application-default login
 # GOOGLE_APPLICATION_CREDENTIALS=../sa-key.json
@@ -91,13 +91,14 @@ SKILL_ENGINE_URL=https://skill-engine-792333060863.asia-northeast3.run.app
 
 | 리소스 | URL |
 |---|---|
-| skill-engine (Cloud Run) | `https://skill-engine-792333060863.asia-northeast3.run.app` |
-| webhook (Cloud Functions) | `https://asia-northeast3-qwiklabs-gcp-04-4818f049b9ca.cloudfunctions.net/handle-skill` |
+| skill-engine (Cloud Run) | `https://skill-engine-314814367176.us-central1.run.app` |
+| webhook (Cloud Functions) | `https://us-central1-qwiklabs-gcp-04-4818f049b9ca.cloudfunctions.net/handle-skill` |
+| dashboard-agent (Cloud Run) | `https://dashboard-agent-314814367176.us-central1.run.app` |
 | Firestore DB | `dangenai-skills` (nam5) |
 
 헬스체크:
 ```bash
-curl https://skill-engine-792333060863.asia-northeast3.run.app/health
+curl https://skill-engine-314814367176.us-central1.run.app/health
 # → {"status":"ok"}
 ```
 
@@ -193,7 +194,7 @@ window.ENV = {
   FIREBASE_API_KEY:  "Firebase 설정의 apiKey",
   FIREBASE_APP_ID:   "Firebase 설정의 appId",
   VAPID_KEY:         "8-1에서 복사한 VAPID 키",
-  SKILL_ENGINE_URL:  "https://skill-engine-792333060863.asia-northeast3.run.app",
+  SKILL_ENGINE_URL:  "https://skill-engine-314814367176.us-central1.run.app",
 };
 ```
 
@@ -248,7 +249,7 @@ VITE_SKILL_ENGINE_URL=http://localhost:8080
 VITE_DEMO_MODE=true
 
 # 실제 Cloud Run 연결 시
-# VITE_SKILL_ENGINE_URL=https://skill-engine-792333060863.asia-northeast3.run.app
+# VITE_SKILL_ENGINE_URL=https://skill-engine-314814367176.us-central1.run.app
 # VITE_DEMO_MODE=false
 ```
 
@@ -297,7 +298,7 @@ dangenai-tv/
 | 증상 | 원인 | 해결 |
 |---|---|---|
 | `DefaultCredentialsError` | ADC 미설정 | `gcloud auth application-default login` 실행 |
-| `스킬 생성 실패 HTTP 500` | Firestore 문서 없음 또는 Vertex AI 권한 없음 | Cloud Run 로그 확인: `gcloud run services logs read skill-engine --region asia-northeast3` |
+| `스킬 생성 실패 HTTP 500` | Firestore 문서 없음 또는 Vertex AI 권한 없음 | Cloud Run 로그 확인: `gcloud run services logs read skill-engine --region us-central1` |
 | `NotFound: 404 database does not exist` | Firestore DB 이름 불일치 | `.env`의 `FIRESTORE_DATABASE=dangenai-skills` 확인 |
 | `400 FCM 토큰 없음` | `owner_fcm_token` 필드 없음 | `owner-app/` 에서 토큰 등록 (8단계) |
 | `400 Duplicate function declaration` | Firestore에 같은 tool_name 중복 저장됨 | `--skip-create-skill` 없이 재실행 (upsert로 자동 정리) |
