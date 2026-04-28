@@ -33,7 +33,7 @@
 
 | 항목 | 값 |
 |---|---|
-| Project ID | `project-9ed97ef0-254a-4ec3-975` |
+| Project ID | `qwiklabs-gcp-04-4818f049b9ca` |
 | Firestore DB | `dangenai-skills` (Native mode, nam5) |
 | Cloud Run | `skill-engine` — `asia-northeast3` |
 | Cloud Functions | `handle-skill` — `asia-northeast3` |
@@ -213,7 +213,7 @@ gcloud run deploy skill-engine \
   --source . \
   --region asia-northeast3 \
   --allow-unauthenticated \
-  --set-env-vars GCP_PROJECT_ID=project-9ed97ef0-254a-4ec3-975,VERTEX_LOCATION=us-central1,FIRESTORE_DATABASE=dangenai-skills,WEBHOOK_URL=https://asia-northeast3-project-9ed97ef0-254a-4ec3-975.cloudfunctions.net/handle-skill
+  --set-env-vars GCP_PROJECT_ID=qwiklabs-gcp-04-4818f049b9ca,VERTEX_LOCATION=us-central1,FIRESTORE_DATABASE=dangenai-skills,WEBHOOK_URL=https://asia-northeast3-qwiklabs-gcp-04-4818f049b9ca.cloudfunctions.net/handle-skill
 ```
 
 ### webhook (Cloud Functions)
@@ -225,7 +225,7 @@ gcloud functions deploy handle-skill \
   --allow-unauthenticated \
   --region asia-northeast3 \
   --source webhook/ \
-  --set-env-vars GCP_PROJECT_ID=project-9ed97ef0-254a-4ec3-975,FIRESTORE_DATABASE=dangenai-skills
+  --set-env-vars GCP_PROJECT_ID=qwiklabs-gcp-04-4818f049b9ca,FIRESTORE_DATABASE=dangenai-skills
 ```
 
 ---

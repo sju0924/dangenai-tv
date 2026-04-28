@@ -19,7 +19,7 @@ from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Too
 
 load_dotenv("skill-engine/.env")
 
-PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "project-9ed97ef0-254a-4ec3-975")
+PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "qwiklabs-gcp-04-4818f049b9ca")
 vertexai.init(project=PROJECT_ID, location=os.environ.get("VERTEX_LOCATION", "us-central1"))
 
 from skill_gen import generate_skill_spec  # type: ignore

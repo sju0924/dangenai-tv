@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 db = firestore.Client(
-    project=os.environ.get("GCP_PROJECT_ID", "project-9ed97ef0-254a-4ec3-975"),
+    project=os.environ.get("GCP_PROJECT_ID", "qwiklabs-gcp-04-4818f049b9ca"),
     database=os.environ.get("FIRESTORE_DATABASE", "dangenai-skills"),
 )
 

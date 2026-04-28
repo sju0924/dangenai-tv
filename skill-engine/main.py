@@ -19,7 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "project-9ed97ef0-254a-4ec3-975")
+PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "qwiklabs-gcp-04-4818f049b9ca")
 VERTEX_LOCATION = os.environ.get("VERTEX_LOCATION", "us-central1")
 WEBHOOK_URL = os.environ.get("WEBHOOK_URL", "")
 
